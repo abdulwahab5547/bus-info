@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Info</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- CSS -->
+    <style>
+        *{
+            margin: 0;
+        }
+        body{
+            background-color: #212529;
+        }
+
+        /* Top heading */
+
+        .top-headings{
+            color: white;
+            
+        }
+        .top-headings h1{
+            font-size: 2.375rem;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .top-headings h1:hover{
+            font-size: 2.45rem;
+        }
+
+
+        .defined-width{
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1250px;
+        }
+
+        /* Credit Para */
+
+        .credit-para{
+            font-size: 22px;
+            color: white;
+            font-weight: 500;
+            text-decoration: underline;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .credit-para:hover{
+            color: #FFDA34;
+        }
+
+
+        /* Main part */
+
+        .bus-timing-row{
+            background-color: #1B1F22;
+            border-radius: 20px;
+            border: 0.1px solid rgb(214, 206, 206);
+            box-shadow: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px 1px rgba(9, 30, 66, 0.13);
+        }
+
+        /* Left part */
+
+        .user-route{
+            border-right: 0.1px solid rgb(214, 206, 206);
+        }
+
+        .user-route-info h2{
+            color: white;
+            font-size: 25px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .user-route-info-right h2{
+            color: white;
+            font-size: 28px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .user-route-info form label{
+            color: white;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        .user-route-info form select{
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 5px;
+            background-color: #212529;
+            color: white;
+            border: 0.1px solid rgb(214, 206, 206);
+            
+        }
+
+        .user-route-info form input{
+            background-color: #FFDB34;
+            color: #1B1F22;
+            border-radius: 10px;
+            font-size: 18px;
+            padding: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-weight: 900;
+            border: 0;
+            margin-top: 15px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .user-route-info form input:hover{
+            background-color: #212529;
+            color: white;
+            border: 1px solid white;
+        }
+
+
+        /* Table */
+
+        table {
+            border: collapse;
+            width: 100%;
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 0.1px solid rgb(214, 206, 206);
+            padding: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="defined-width mt-5">
+        <div class="top-headings text-center">
+            <h1>Welcome to KFUEIT Bus Information System (KBIS)</h1>
+        </div>
+    </div>
+    <div class="credit text-center mt-5">
+        <a href="https://abdulwahabasif.com/"><p class="credit-para">Made By: <span>Abdul Wahab</span></p></a>
+    </div>
+
+
+
+    <div class="defined-width mt-1 mb-2">
+        <div class="bus-timing-row row">
+            <div class="user-route col-12 col-sm-12 col-md-3 col-lg-3 p-lg-5 p-md-5 p-3 p-sm-3">
+                <div class="user-route-info">
+                    <h2 class="pb-4">Please pick your preferred options:</h2>
+
+                    <form id="myForm">
+                        <label for="city">Choose a route:</label>
+                        <br>
+                        <select id="city" name="city">
+                            <option value="Khanpur Adda">Khanpur Adda</option>
+                            <option value="Gulshan Iqbal">Gulshan Iqbal</option>
+                            <option value="Sadiqabad">Sadiqabad</option>
+                        </select>
+                
+                        <br><br>
+                
+                        <label for="timing">Do you want pick up or drop timing information?</label>
+                        <br>
+                        <select id="timing" name="timing">
+                            <option value="Pick Up">Pick Up</option>
+                            <option value="Drop">Drop</option>
+                        </select>
+                
+                        <br><br>
+                
+                        <input class="submit-button" type="button" value="Submit" onclick="submitForm()">
+                    </form>
+                </div> 
+            </div>
+            
+            <div class="info-displayed col-12 col-sm-12 col-md-9 col-lg-9 p-lg-5 p-md-5 p-3 p-sm-3">
+                <div class="user-route-info-right">
+                    <h2 class="pb-4">Bus timings for selected route:</h2>
+                </div>
+                <div class="route-info-table">
+                    <table id="routeTable">
+                        <tr>
+                            <th>Pick Up/Drop Point</th>
+                            <th>Time 1</th>
+                            <th>Time 2</th>
+                            <th>Time 3</th>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                            <td>*</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+
+    <script>
+
+        function submitForm() {
+        // Get form elements
+        var city = document.getElementById("city").value;
+        var timing = document.getElementById("timing").value;
+
+        // Khanpur adda - Pick Up
+
+        if (city === "Khanpur Adda" && timing === "Pick Up"){
+
+            var newPickUpLocations = [
+                "University",
+                "ZTBL",
+                "Adda Khanpur",
+                "Oxbridge Pull",
+                "Adda Khanpur",
+                "Canal Country Club",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykPickTimes = [
+                ["7:00 AM", "9:50 AM", "11:30 AM"],
+                ["7:20 AM", "10:10 AM", "1:10 PM"],
+                ["7:25 AM", "10:15 AM", "1:15 PM"],
+                ["7:30 AM", "10:20 AM", "1:20 PM"],
+                ["7:32 AM", "10:22 AM", "1:22 PM"],
+                ["7:32 AM", "10:25 AM", "1:25 PM"],
+                ["7:50 AM", "10:40 AM", "1:40 PM"]
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykPickTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+        // Khanpur adda - Drop
+
+        else if (city === "Khanpur Adda" && timing === "Drop"){
+
+            var newPickUpLocations = [
+                "University",
+                "Darri Sanghi",
+                "Canal Country Club Pull",
+                "Oxbridge Pull",
+                "Adda Khanpur",
+                "ZTBL",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykDropTimes = [
+                ["11:30 AM", "2:30 PM", "5:15 PM"],
+                ["11:45 AM", "2:45 PM", "5:30 PM"],
+                ["11:48 AM", "2:48 PM", "5:33 PM"],
+                ["11:50 AM", "2:50 PM", "5:35 PM"],
+                ["11:53 AM", "2:53 PM", "5:38 PM"],
+                ["12:00 PM", "2:58 PM", "5:45 PM"],
+                ["1:40 PM", "3:30 PM", "6:00 PM"],
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykDropTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+        // Gulshan Iqbal - Pick Up
+
+        else if (city === "Gulshan Iqbal" && timing === "Pick Up"){
+            
+            var newPickUpLocations = [
+                "University",
+                "Khushi Fuel Station",
+                "Gulshan-e-Iqbal",
+                "Punjab College",
+                "Iqbal Nagar",
+                "Faisal Movers",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykPickTimes = [
+                ["7:00 AM", "9:50 AM", "11:30 AM"],
+                ["7:20 AM", "10:10 AM", "1:10 PM"],
+                ["7:25 AM", "10:15 AM", "1:15 PM"],
+                ["7:30 AM", "10:20 AM", "1:20 PM"],
+                ["7:32 AM", "10:22 AM", "1:22 PM"],
+                ["7:32 AM", "10:25 AM", "1:25 PM"],
+                ["7:50 AM", "10:40 AM", "1:40 PM"]
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykPickTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+        // Gulshan Iqbal - Drop
+
+        else if (city === "Gulshan Iqbal" && timing === "Drop"){
+            
+            var newPickUpLocations = [
+                "University",
+                "Faisal Movers",
+                "Iqbal Nagar",
+                "Punjab College",
+                "Gulshan-e-Iqbal",
+                "Khushi Fuel Station",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykDropTimes = [
+                ["11:30 AM", "2:30 PM", "5:15 PM"],
+                ["11:45 AM", "2:45 PM", "5:30 PM"],
+                ["11:48 AM", "2:48 PM", "5:33 PM"],
+                ["11:50 AM", "2:50 PM", "5:35 PM"],
+                ["11:53 AM", "2:53 PM", "5:38 PM"],
+                ["12:00 PM", "2:58 PM", "5:45 PM"],
+                ["1:40 PM", "3:30 PM", "6:00 PM"],
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykDropTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+
+
+        // Sadiqabad Pick Up
+
+        else if (city === "Sadiqabad" && timing === "Pick Up"){
+            
+            var newPickUpLocations = [
+                "New Bus Stand SDQ",
+                "10 No. Chungi",
+                "Rehman Fuel Station Overhead Bridge",
+                "Nashtar Chowk",
+                "Old Bus Stand",
+                "12. No Chungi",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykPickTimes = [
+                ["6:20 AM", "8:00 AM", "11:15 AM"],
+                ["6:22 AM", "8:55 AM", "12:20 PM"],
+                ["6:25 AM", "9:05 AM", "12:24 PM"],
+                ["6:28 AM", "9:10 AM", "12:28 PM"],
+                ["6:30 AM", "9:12 AM", "12:30 PM"],
+                ["6:32 AM", "9:17 AM", "12:32 PM"],
+                ["8:00 AM", "10:40 AM", "1:45 PM"]
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykPickTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+        // Sadiqabad - Drop
+
+        else if (city === "Sadiqabad" && timing === "Drop"){
+            
+            var newPickUpLocations = [
+                "University",
+                "Thalli Chowk",
+                "Basti Malikpur",
+                "Chowk Bahadarpur",
+                "Nawab Flour Mill",
+                "By Pass JDW",
+                "University"
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var pickUpPoints = routeTable.querySelectorAll("td:first-child");
+
+            for (var i = 0; i < pickUpPoints.length; i++) {
+                pickUpPoints[i].textContent = newPickUpLocations[i];
+            }
+
+            var RykDropTimes = [
+                ["11:15 AM", "2:15 PM", "5:15 PM"],
+                ["11:40 AM", "2:45 PM", "5:40 PM"],
+                ["11:50 AM", "2:55 PM", "5:50 PM"],
+                ["11:52 AM", "2:57 PM", "5:52 PM"],
+                ["12:12 AM", "3:12 PM", "6:10 PM"],
+                ["12:20 PM", "3:20 PM", "6:25 PM"],
+                ["13:45 PM", "4:45 PM", "6:40 PM"],
+            ];
+
+            var routeTable = document.getElementById("routeTable");
+            var rows = routeTable.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 1; j <= 3; j++) {
+                    cells[j].innerHTML = RykDropTimes[i - 1][j - 1];
+                }
+            }
+        }
+
+        
+
+    }
+    </script>
+    
+</body>
+</html>
